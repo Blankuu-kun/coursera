@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Flower Gallery</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background-color: #f4f4f4;
+        text-align: center;
+    }
+
+    header {
+        background-color: #222;
+        color: white;
+        padding: 1rem;
+    }
+
+    main {
+        padding: 20px;
+    }
+
+    #displayed-image {
+        width: 60%;
+        max-width: 600px;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        margin-bottom: 10px;
+    }
+
+    #image-description {
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+    }
+
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 10px;
+        max-width: 900px;
+        margin: auto;
+    }
+
+    .gallery img {
+        width: 100%;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    .gallery img:hover,
+    .gallery img:focus {
+        transform: scale(1.05);
+        outline: 2px solid #555;
+    }
+
+</style>
+</head>
+
+<body onload="initializeGallery()">
+
+<header>
+    <h1>Interactive Wuthering Waves Character Gallery</h1>
+    <p>Hover, click, or use keyboard (Tab + Enter) to explore the characters.</p>
+</header>
+
+<main>
+    <section>
+        <img id="displayed-image" 
+             src="wuwa.jpg" 
+             alt="Large display area">
+        <p id="image-description">Wuthering waves character will appear here.</p>
+    </section>
+
+    <section class="gallery">
+
+        <img src="carlotta.png" alt="Carlotta">
+        <img src="chisa.png" alt="Chisa">
+        <img src="iuno.png" alt="Iuno">
+        <img src="cartethyia.png" alt="Cartethyia">
+        <img src="aemeath.png" alt="Aemeath">
+        <img src="mornye.png" alt="Mornye">
+
+    </section>
+</main>
+
+<script>
+
+function initializeGallery() {
+
+    console.log("Gallery Loaded Successfully");
+
+    const images = document.querySelectorAll(".gallery img");
+
+    for (let i = 0; i < images.length; i++) {
+
+        images[i].setAttribute("tabindex", "0");
+
+        images[i].addEventListener("click", function() {
+            showImage(this);
+        });
+
+        images[i].addEventListener("mouseover", function() {
+            showImage(this);
+            console.log("Mouse Over Triggered");
+        });
+
+        images[i].addEventListener("mouseleave", function() {
+            console.log("Mouse Leave Triggered");
+        });
+
+        images[i].addEventListener("focus", function() {
+            showImage(this);
+            console.log("Focus Triggered");
+        });
+
+        images[i].addEventListener("blur", function() {
+            console.log("Blur Triggered");
+        });
+
+        images[i].addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                showImage(this);
+                console.log("Enter Key Triggered");
+            }
+        });
+    }
+}
+
+function showImage(img) {
+    const displayedImage = document.getElementById("displayed-image");
+    const description = document.getElementById("image-description");
+
+    displayedImage.src = img.src;
+    displayedImage.alt = img.alt;
+    description.textContent = img.alt;
+}
+
+</script>
+
+</body>
+</html>
